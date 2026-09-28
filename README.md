@@ -233,7 +233,8 @@ GitHub Actions runs these tests in a clean MATLAB environment and verifies that 
 ├── scripts/             reproducible runners
 ├── legacy/              original implementation
 ├── data/                historical model/data snapshots
-├── cbFBA with an example.docx
+├── docs/
+│   └── cbFBA with an example.docx
 ├── README.md
 ├── MIGRATION.md
 ├── REPRODUCIBILITY.md
