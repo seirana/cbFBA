@@ -17,6 +17,9 @@ function result = optimizeFluxRanges(model, method, toleranceFactor, options)
     if ~isfield(options, "display")
         options.display = "none";
     end
+    if ~isfield(options, "complexModel")
+        options.complexModel = [];
+    end
 
     validateattributes(toleranceFactor, {'numeric'}, {'scalar', 'real', 'finite', '>=', 1});
 
@@ -25,7 +28,24 @@ function result = optimizeFluxRanges(model, method, toleranceFactor, options)
     end
 
     model = cbfba.validateModel(model);
-    complexModel = cbfba.buildComplexMatrices(model, options.complexTolerance);
+    method = lower(string(method));
+
+    if method == "cbfba"
+        if isempty(options.complexModel)
+            complexModel = cbfba.buildComplexMatrices( ...
+                model, ...
+                options.complexTolerance);
+        else
+            complexModel = options.complexModel;
+        end
+    elseif method == "pfba"
+        complexModel = [];
+    else
+        error( ...
+            "cbfba:UnknownMethod", ...
+            "method must be 'cbfba' or 'pfba'.");
+    end
+
     problem = cbfba.buildParsimoniousProblem(model, complexModel, method);
 
     solverOptions = optimoptions("linprog", "Display", char(string(options.display)));
@@ -82,7 +102,7 @@ function result = optimizeFluxRanges(model, method, toleranceFactor, options)
         {'ReactionNumber', 'ReactionID', 'Minimum', 'Maximum', 'MinAbsoluteEndpoint', 'MaxAbsoluteEndpoint'});
 
     result = struct( ...
-        "method", lower(string(method)), ...
+        "method", method, ...
         "optimumObjective", double(optimumValue), ...
         "objectiveLimit", double(objectiveLimit), ...
         "toleranceFactor", double(toleranceFactor), ...
