@@ -1,0 +1,17 @@
+# MATLAB
+*.asv
+*.m~
+slprj/
+codegen/
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+
+# Generated maintained outputs
+artifacts/
+results/
+*.log
+
+# Temporary files
+*.tmp
