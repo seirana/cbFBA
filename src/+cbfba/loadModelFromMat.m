@@ -39,7 +39,7 @@ function model = loadModelFromMat(modelFile, variableName)
     for i = 1:numel(names)
         value = contents.(names(i));
         matches(i) = isstruct(value) ...
-            && all(isfield(value, {"S", "rxns", "mets", "lb", "ub"}));
+            && all(isfield(value, {'S', 'rxns', 'mets', 'lb', 'ub'}));
     end
 
     candidates = names(matches);
