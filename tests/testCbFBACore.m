@@ -32,7 +32,7 @@ function testComplexMatricesReconstructStoichiometry(testCase)
         full(complexModel.Y * complexModel.A), ...
         model.S, ...
         "AbsTol", 1e-12);
-    verifySize(testCase, complexModel.A, [4, 3]);
+    verifySize(testCase, complexModel.A, [2, 3]);
     verifyEqual(testCase, complexModel.reconstructionError, 0, "AbsTol", 1e-12);
 end
 
