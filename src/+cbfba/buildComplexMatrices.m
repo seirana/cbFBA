@@ -90,7 +90,7 @@ function name = localComplexName(column, metaboliteIDs)
 
     for i = 1:numel(indices)
         index = indices(i);
-        pieces(i) = string(column(index)) + "*" + string(metaboliteIDs{index});
+        pieces(i) = string(full(column(index))) + "*" + string(metaboliteIDs{index});
     end
 
     name = strjoin(pieces, "+");
